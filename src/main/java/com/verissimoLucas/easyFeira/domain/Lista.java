@@ -1,10 +1,8 @@
 package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -35,6 +32,11 @@ public class Lista implements Serializable {
 	@OneToMany(mappedBy = "id.lista")
 	private Set<ProdutoLista> itens = new HashSet<>();
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "feira_id")
+	private Feira feira;
+	
 	public Lista() {
 		
 	}	
@@ -45,6 +47,14 @@ public class Lista implements Serializable {
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
 		this.usuario = usuario;
+	}
+	
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (ProdutoLista ip : itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
 	}
 
 	public Integer getId() {
@@ -79,14 +89,27 @@ public class Lista implements Serializable {
 		this.usuario = usuario;
 	}
 
+	public Set<ProdutoLista> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ProdutoLista> itens) {
+		this.itens = itens;
+	}
+
+	public Feira getFeira() {
+		return feira;
+	}
+	
+	public void setFeira(Feira feira) {
+		this.feira = feira;
+	}	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
 
@@ -99,34 +122,11 @@ public class Lista implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Lista other = (Lista) obj;
-		if (dataCriacao == null) {
-			if (other.dataCriacao != null)
-				return false;
-		} else if (!dataCriacao.equals(other.dataCriacao))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
 		return true;
 	}
-
-	public Set<ProdutoLista> getItens() {
-		return itens;
-	}
-
-	public void setItens(Set<ProdutoLista> itens) {
-		this.itens = itens;
-	}	
 }

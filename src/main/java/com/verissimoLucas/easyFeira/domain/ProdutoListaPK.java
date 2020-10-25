@@ -41,6 +41,7 @@ public class ProdutoListaPK implements Serializable {
 	public void setLista(Lista lista) {
 		this.lista = lista;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,6 +50,7 @@ public class ProdutoListaPK implements Serializable {
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,5 +71,5 @@ public class ProdutoListaPK implements Serializable {
 		} else if (!produto.equals(other.produto))
 			return false;
 		return true;
-	}
+	}	
 }

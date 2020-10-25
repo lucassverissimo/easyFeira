@@ -29,6 +29,14 @@ public class ProdutoLista implements Serializable {
 		this.quantidade = quantidade;
 		this.unidadeMedida = unidadeMedida;
 	}
+	
+	public double getSubTotal() {
+		try {
+			return id.getProduto().getValor()  * quantidade;			
+		} catch (Exception e) {
+			return 0.0;
+		}
+	}
 
 	@JsonIgnore
 	public Lista getLista() {
