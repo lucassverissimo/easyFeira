@@ -8,19 +8,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+@Entity
 public class Lista implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 	private Date dataCriacao;	
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Usuario usuario;
-	private Set<Produto> produtos;
+	//private Set<Produto> produtos;
 	
 	public Lista() {
 		
@@ -65,14 +68,14 @@ public class Lista implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
+/*
 	public Set<Produto> getProdutos() {
 		return produtos;
 	}
 
 	public void setProdutos(Set<Produto> produtos) {
 		this.produtos = produtos;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {

@@ -1,6 +1,8 @@
 package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 public class Usuario implements Serializable {
@@ -18,12 +22,12 @@ public class Usuario implements Serializable {
 	private Integer id;
 	private String nome;
 	private String apelido;
-	private String telfoneZap;
+	private String telfoneZap;	
 	private String login;
 	private String senha;	
 	
-	
-	//private Set<Lista> listas;
+	@OneToMany(mappedBy = "id")
+	private List<Lista> listas = new ArrayList<>();
 	
 	public Usuario() {
 		
@@ -87,6 +91,14 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
+	public List<Lista> getListas() {
+		return listas;
+	}
+	
+	public void setListas(List<Lista> listas) {
+		this.listas = listas;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,11 +154,4 @@ public class Usuario implements Serializable {
 		return true;
 	}
 
-	/*public Set<Lista> getListas() {
-		return listas;
-	}
-
-	public void setListas(Set<Lista> listas) {
-		this.listas = listas;
-	}	*/
 }
