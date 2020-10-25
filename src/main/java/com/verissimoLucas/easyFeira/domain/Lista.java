@@ -4,12 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 public class Lista implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	
 	private Integer id;
 	private String descricao;
-	private Date dataCriacao;
+	private Date dataCriacao;	
+	
+	
 	private Usuario usuario;
 	private Set<Produto> produtos;
 	

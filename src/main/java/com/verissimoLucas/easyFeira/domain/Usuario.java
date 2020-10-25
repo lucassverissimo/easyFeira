@@ -1,16 +1,29 @@
 package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String apelido;
 	private String telfoneZap;
 	private String login;
-	private String senha;
+	private String senha;	
+	
+	
+	//private Set<Lista> listas;
 	
 	public Usuario() {
 		
@@ -127,5 +140,13 @@ public class Usuario implements Serializable {
 		} else if (!telfoneZap.equals(other.telfoneZap))
 			return false;
 		return true;
-	}	
+	}
+
+	/*public Set<Lista> getListas() {
+		return listas;
+	}
+
+	public void setListas(Set<Lista> listas) {
+		this.listas = listas;
+	}	*/
 }
