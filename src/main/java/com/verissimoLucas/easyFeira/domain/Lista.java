@@ -2,7 +2,6 @@ package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Lista implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,8 +21,9 @@ public class Lista implements Serializable {
 	private String descricao;
 	private Date dataCriacao;	
 	
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	//private Set<Produto> produtos;
 	

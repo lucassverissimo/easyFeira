@@ -3,15 +3,12 @@ package com.verissimoLucas.easyFeira.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 public class Usuario implements Serializable {
@@ -26,7 +23,7 @@ public class Usuario implements Serializable {
 	private String login;
 	private String senha;	
 	
-	@OneToMany(mappedBy = "id")
+	@OneToMany(mappedBy = "usuario")
 	private List<Lista> listas = new ArrayList<>();
 	
 	public Usuario() {
