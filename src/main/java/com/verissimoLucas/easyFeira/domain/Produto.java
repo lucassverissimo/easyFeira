@@ -1,22 +1,36 @@
 package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 	private String marca;
 	private String tipo;
 	private Double valor;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ProdutoLista> listas = new HashSet<>();	
 	
 	public Produto() {
 		
@@ -71,6 +85,8 @@ public class Produto implements Serializable {
 		this.valor = valor;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,5 +134,14 @@ public class Produto implements Serializable {
 		} else if (!valor.equals(other.valor))
 			return false;
 		return true;
-	}	
+	}
+
+	public Set<ProdutoLista> getListas() {
+		return listas;
+	}
+
+	public void setListas(Set<ProdutoLista> listas) {
+		this.listas = listas;
+	}
+
 }

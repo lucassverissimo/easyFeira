@@ -2,11 +2,27 @@ package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Embeddable
 public class ProdutoListaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@ManyToOne
+	@JoinColumn(name = "produto_id")
 	private Produto produto;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "lista_id")
 	private Lista lista;
+	
+	public ProdutoListaPK() {
+		
+	}
 	
 	public ProdutoListaPK(Produto produto, Lista lista) {
 		super();

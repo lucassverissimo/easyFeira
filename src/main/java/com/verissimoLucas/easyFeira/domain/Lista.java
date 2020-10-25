@@ -1,14 +1,20 @@
 package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
@@ -25,7 +31,9 @@ public class Lista implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
-	//private Set<Produto> produtos;
+
+	@OneToMany(mappedBy = "id.lista")
+	private Set<ProdutoLista> itens = new HashSet<>();
 	
 	public Lista() {
 		
@@ -70,14 +78,6 @@ public class Lista implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-/*
-	public Set<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(Set<Produto> produtos) {
-		this.produtos = produtos;
-	}*/
 
 	@Override
 	public int hashCode() {
@@ -120,5 +120,13 @@ public class Lista implements Serializable {
 		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
+	}
+
+	public Set<ProdutoLista> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ProdutoLista> itens) {
+		this.itens = itens;
 	}	
 }

@@ -2,19 +2,19 @@ package com.verissimoLucas.easyFeira.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.verissimoLucas.easyFeira.domain.enums.UnidadeMedida;
 
-
+@Entity
 public class ProdutoLista implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
-	private ProdutoListaPK id;
+	@JsonIgnore
+	@EmbeddedId
+	private ProdutoListaPK id = new ProdutoListaPK();
 	private Double quantidade;
 	private UnidadeMedida unidadeMedida;
 	
@@ -22,19 +22,29 @@ public class ProdutoLista implements Serializable {
 		
 	}
 
-	public ProdutoLista(ProdutoListaPK id, Double quantidade, UnidadeMedida unidadeMedida) {
+	public ProdutoLista(Produto produto, Lista lista, Double quantidade, UnidadeMedida unidadeMedida) {
 		super();
-		this.id = id;
+		this.id.setProduto(produto);
+		this.id.setLista(lista);
 		this.quantidade = quantidade;
 		this.unidadeMedida = unidadeMedida;
 	}
 
-	public ProdutoListaPK getId() {
-		return id;
+	@JsonIgnore
+	public Lista getLista() {
+		return this.id.getLista();
+	}
+	
+	public void setLista(Lista lista) {
+		id.setLista(lista);
 	}
 
-	public void setId(ProdutoListaPK id) {
-		this.id = id;
+	public Produto getProduto() {
+		return this.id.getProduto();
+	}
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
 	}
 
 	public Double getQuantidade() {
